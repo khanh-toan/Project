@@ -75,3 +75,4 @@ D:\8_PRN231\Project\backend\backend\bin\Debug\net6.0\DataAccess.pdb
 D:\8_PRN231\Project\backend\backend\bin\Debug\net6.0\DataTransfer.pdb
 D:\8_PRN231\Project\backend\backend\bin\Debug\net6.0\Humanizer.dll
 D:\8_PRN231\Project\backend\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\8_PRN231\Project\backend\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
