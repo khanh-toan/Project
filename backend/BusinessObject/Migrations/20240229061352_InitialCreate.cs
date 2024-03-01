@@ -212,7 +212,7 @@ namespace BusinessObject.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "CCCD", "CreatedDate", "Dob", "Email", "EmployeeCode", "EmployeeName", "Gender", "IsFirstLogin", "Password", "Phone", "Role", "Status" },
-                values: new object[] { 1, "HCM", "1234567890", new DateTime(2024, 2, 17, 16, 5, 7, 892, DateTimeKind.Local).AddTicks(9205), new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@projectx.com", "SD0001", "Admin", 0, true, "$2a$11$XxBpcMNKjUPLyRWJqK5CkOKuhLc6quv2aH/q2jeHmEb6DmdDdMo6i", "0792123456", 0, 0 });
+                values: new object[] { 1, "HCM", "1234567890", new DateTime(2024, 2, 29, 13, 13, 52, 59, DateTimeKind.Local).AddTicks(4529), new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@projectx.com", "SD0001", "Admin", 0, true, "$2a$11$mGSu2hq.DIf1/9Y6MUwpQOzfDWOMBc..1Qklbx2lx8KY5CGG88Zum", "0792123456", 0, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_EmployeeId",

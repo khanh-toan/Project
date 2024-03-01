@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240217090508_InitialCreate")]
+    [Migration("20240229061352_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,14 +189,14 @@ namespace BusinessObject.Migrations
                             Id = 1,
                             Address = "HCM",
                             CCCD = "1234567890",
-                            CreatedDate = new DateTime(2024, 2, 17, 16, 5, 7, 892, DateTimeKind.Local).AddTicks(9205),
+                            CreatedDate = new DateTime(2024, 2, 29, 13, 13, 52, 59, DateTimeKind.Local).AddTicks(4529),
                             Dob = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@projectx.com",
                             EmployeeCode = "SD0001",
                             EmployeeName = "Admin",
                             Gender = 0,
                             IsFirstLogin = true,
-                            Password = "$2a$11$XxBpcMNKjUPLyRWJqK5CkOKuhLc6quv2aH/q2jeHmEb6DmdDdMo6i",
+                            Password = "$2a$11$mGSu2hq.DIf1/9Y6MUwpQOzfDWOMBc..1Qklbx2lx8KY5CGG88Zum",
                             Phone = "0792123456",
                             Role = 0,
                             Status = 0
