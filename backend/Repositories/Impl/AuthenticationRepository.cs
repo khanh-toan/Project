@@ -3,6 +3,7 @@ using BusinessObject;
 using BusinessObject.Enum;
 using DataAccess;
 using DataTransfer.Request;
+using DataTransfer.Response;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -59,6 +60,25 @@ namespace Repositories.Impl
             user.Password = passwordHash;
             EmployeeDAO.UpdateEmployee(user);
             return true;
+        }
+
+        public ProfileEmployeeResponse GetProfile(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var claims = jwtToken.Claims;
+            var idEmployee = claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value;
+            var employeeLogged = EmployeeDAO.FindEmployeeById(int.Parse(idEmployee));
+            ProfileEmployeeResponse p = new ProfileEmployeeResponse
+            {
+                Id = employeeLogged.Id,
+                EmployeeName = employeeLogged.EmployeeName,
+                EmployeeCode = employeeLogged.EmployeeCode,
+                Email = employeeLogged.Email,
+                Role = employeeLogged.Role,
+                IsFirstLogin = employeeLogged.IsFirstLogin
+            };
+            return p;
         }
     }
 }

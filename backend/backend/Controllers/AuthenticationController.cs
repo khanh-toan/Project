@@ -9,13 +9,12 @@ using Repositories.Impl;
 
 namespace backend.Controllers
 {
-    [Route("odata/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : Controller
     {
         private IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
         private IEmployeeRepository employeeRepository = new EmployeeRepository();
-
 
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDTO loginDTO)
@@ -42,6 +41,17 @@ namespace backend.Controllers
             return check ? Ok(check) : BadRequest("Confirm password not march password");
         }
 
-
+        [Authorize]
+        [HttpGet("Profile")]
+        public IActionResult GetProfile()
+        {
+            string token = Request.Headers["Authorization"];
+            if (string.IsNullOrEmpty(token))
+                return BadRequest("Invalid token");
+            if (token.StartsWith("Bearer "))
+                token = token.Substring("Bearer ".Length).Trim();
+            var employeeLogged = authenticationRepository.GetProfile(token);
+            return Ok(employeeLogged);
+        }
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 
 namespace backend
@@ -20,11 +22,17 @@ namespace backend
             {
                 option.AddDefaultPolicy(p =>
                         p.WithOrigins(
-                            "http://localhost:7130"
+                            "http://localhost:7130",
+                            "http://localhost:7291"
                         ).SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
                             .AllowAnyMethod());
-            }); 
+            });
+
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("CORSPolicy", builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed((host) => true));
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -51,7 +59,11 @@ namespace backend
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement { { securityScheme, new string[] { } } });
             });
 
-            builder.Services.AddAuthentication().AddJwtBearer(options =>
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -59,6 +71,21 @@ namespace backend
                     ValidateAudience = false,
                     ValidateIssuer = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT:Token").Value!))
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+
+                    OnTokenValidated = context =>
+                    {
+                        var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
+                        var employeeIdClaim = context.Principal?.FindFirst("EmployeeId");
+                        if (employeeIdClaim != null)
+                        {
+                            claimsIdentity?.AddClaim(new Claim(ClaimTypes.Name, employeeIdClaim.Value));
+                        }
+                        return Task.CompletedTask;
+                    },
                 };
             });
 
@@ -73,9 +100,10 @@ namespace backend
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseCors();
+            app.UseCors("CORSPolicy");
             app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.MapControllers();
 
             app.Run();
