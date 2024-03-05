@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransfer", "DataTransfe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{3013249C-23E9-477A-812B-BFABE891EA31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clients", "clients\clients.csproj", "{B1191349-501A-4D17-A834-C1A69F5FFF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clients", "clients\clients.csproj", "{B1191349-501A-4D17-A834-C1A69F5FFF19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,3 +29,11 @@ D:\8_PRN231\Project\backend\clients\obj\Debug\net6.0\refint\clients.dll
 D:\8_PRN231\Project\backend\clients\obj\Debug\net6.0\clients.pdb
 D:\8_PRN231\Project\backend\clients\obj\Debug\net6.0\clients.genruntimeconfig.cache
 D:\8_PRN231\Project\backend\clients\obj\Debug\net6.0\ref\clients.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\8_PRN231\Project\backend\clients\obj\Debug\net6.0\clients.csproj.CopyComplete
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Microsoft.Owin.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Owin.dll
+D:\8_PRN231\Project\backend\clients\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

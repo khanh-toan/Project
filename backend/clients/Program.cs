@@ -9,6 +9,7 @@ namespace clients
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddAuthorization();
+            builder.Services.AddHttpClient();
 
             var app = builder.Build();
 
