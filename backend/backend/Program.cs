@@ -1,3 +1,4 @@
+using BusinessObject;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,7 @@ namespace backend
             // Add services to the container.
             /*builder.Services.AddTransient<ITakeLeaveRepository, TakeLeaveRepository>();
             builder.Services.AddTransient<IPayrollRepository, PayrollRepository>();*/
-
+            builder.Services.AddScoped<MyDbContext>();
             // Config CORS
             builder.Services.AddCors(option =>
             {

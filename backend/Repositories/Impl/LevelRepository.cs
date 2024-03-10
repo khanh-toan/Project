@@ -10,10 +10,7 @@ namespace Repositories.Impl
 {
     public class LevelRepository : ILevelRepository
     {
-        public void DeleteLevel(Level level)
-        {
-            throw new NotImplementedException();
-        }
+        public void DeleteLevel(Level level) => LevelDAO.DeleteLevel(level);
 
         public Level GetLevelById(int id) => LevelDAO.FindLevelById(id);
 

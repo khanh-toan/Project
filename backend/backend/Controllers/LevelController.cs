@@ -73,5 +73,19 @@ namespace backend.Controllers
 
             return Ok(level);
         }
+
+        [HttpDelete("{key}")]
+        public IActionResult Delete(int key)
+        {
+            var level = levelRepository.GetLevelById(key);
+
+            if (level == null)
+            {
+                return NotFound();
+            }
+
+            levelRepository.DeleteLevel(level);
+            return NoContent();
+        }
     }
 }

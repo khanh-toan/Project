@@ -90,5 +90,39 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+
+        public static void DeleteLevel(Level level)
+        {
+            try
+            {
+                using (var context = new MyDbContext())
+                {
+                    var contacts = context.Contracts.Where(c => c.LevelId == level.Id).ToList();
+                    
+                    if (contacts != null)
+                    {
+                        foreach (var contact in contacts)
+                        {
+                            context.Contracts.Remove(contact);
+                        }
+                        var levelToDelete = context
+                        .Levels
+                        .SingleOrDefault(c => c.Id == level.Id);
+                        context.Levels.Remove(levelToDelete);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        var levelToDelete = context.Levels.SingleOrDefault(c => c.Id == level.Id);
+                        context.Levels.Remove(levelToDelete);
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
