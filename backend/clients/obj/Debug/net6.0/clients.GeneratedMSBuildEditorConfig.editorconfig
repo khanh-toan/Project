@@ -16,8 +16,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\8_PRN231\Project\backend\clients
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/8_PRN231/Project/backend/clients/Pages/Admin/ManageLevel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cTWFuYWdlTGV2ZWwuY3NodG1s
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/ManageLevel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXE1hbmFnZUxldmVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/8_PRN231/Project/backend/clients/Pages/Auth/Login.cshtml]

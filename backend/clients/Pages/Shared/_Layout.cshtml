@@ -1,5 +1,5 @@
 ﻿@{
-    string token = Context.Request.Cookies["AuthToken"];
+    string token = Context.Request.Cookies["AccessToken"];
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@
                                 if (roleClaim == "Admin")
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ManageLevel">Manage Level</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Employees/Index">Manage Level</a>
                                     </li>
                                 }
                             }

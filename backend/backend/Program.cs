@@ -76,7 +76,6 @@ namespace backend
 
                 options.Events = new JwtBearerEvents
                 {
-
                     OnTokenValidated = context =>
                     {
                         var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;

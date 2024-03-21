@@ -8,7 +8,7 @@ namespace clients.Pages.Auth
         public IActionResult OnGet()
         {
             // Xóa token từ cookie
-            Response.Cookies.Delete("AuthToken");
+            Response.Cookies.Delete("AccessToken");
 
             // Chuyển hướng người dùng đến trang nào đó sau khi logout thành công
             return RedirectToPage("/Auth/Login");

@@ -5,11 +5,22 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BusinessObject.Enum.EnumList;
 
 namespace Repositories.Helper
 {
     public class UserHelper
     {
+        public static string GetStatusString(EmployeeStatus status)
+        {
+            return status == EmployeeStatus.Active ? "Active" : "Deactive";
+        }
+
+        public static string GetEmployeeType(EmployeeType type)
+        {
+            return type == EmployeeType.FullTime ? "FullTime" : "PartTime";
+        }
+
         public static bool CheckAgeLessThan18(DateTime dob)
         {
             DateTime currentDate = DateTime.Now;

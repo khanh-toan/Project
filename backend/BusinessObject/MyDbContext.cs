@@ -96,7 +96,7 @@ namespace BusinessObject
                     CCCD = "1234567890",
                     Address = "HCM",
                     CreatedDate = DateTime.Now,
-                    Email = "admin@projectx.com",
+                    Email = "   ",
                     Phone = "0792123456",
                     Status = Enum.EnumList.EmployeeStatus.Active,
                     IsFirstLogin = true,

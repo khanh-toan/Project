@@ -47,7 +47,7 @@ namespace BusinessObject
 
         [JsonIgnore]
         public virtual ICollection<Attendance> Attendances { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual ICollection<Contract> Contracts { get; set; }
         [JsonIgnore]
         public virtual ICollection<TakeLeave> TakeLeaves { get; set; }

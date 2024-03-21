@@ -10,6 +10,7 @@ namespace clients
             builder.Services.AddRazorPages();
             builder.Services.AddAuthorization();
             builder.Services.AddHttpClient();
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

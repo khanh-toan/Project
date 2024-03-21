@@ -7,6 +7,7 @@ using DataAccess;
 using BusinessObject.Enum;
 using Repositories.Helper;
 using DataTransfer.Request;
+using DataTransfer.Response;
 
 namespace backend.Controllers
 {
@@ -20,7 +21,30 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(employeeRepository.GetAll());
+            var check = employeeRepository.GetAll();
+            List<EmployeeResponse> response = new List<EmployeeResponse>();
+            foreach (var item in check)
+            {
+                var JobTitle = item.Contracts
+                    .Select(c => c.Level.LevelName + " " + c.Position.PositionName);
+                string jobTitleString = String.Join(" ", JobTitle);
+
+                var type = item.Contracts.Select(t => t.EmployeeType).FirstOrDefault();
+                EmployeeResponse employee = new EmployeeResponse
+                {
+                    EmployeeName = item.EmployeeName,
+                    EmployeeCode = item.EmployeeCode,
+                    Role = item.Role,
+                    status = UserHelper.GetStatusString(item.Status),
+                    CreatedDate = item.CreatedDate,
+                    IsFirstLogin = item.IsFirstLogin,
+                    jobTitle = jobTitleString,
+                    EmployeeType = UserHelper.GetEmployeeType(type)
+                };
+                response.Add(employee);
+            }
+
+            return Ok(response);
         }
 
         [HttpGet("{key}")]
