@@ -8,6 +8,7 @@ using BusinessObject.Enum;
 using Repositories.Helper;
 using DataTransfer.Request;
 using DataTransfer.Response;
+using static BusinessObject.Enum.EnumList;
 
 namespace backend.Controllers
 {
@@ -29,9 +30,12 @@ namespace backend.Controllers
                     .Select(c => c.Level.LevelName + " " + c.Position.PositionName);
                 string jobTitleString = String.Join(" ", JobTitle);
 
-                var type = item.Contracts.Select(t => t.EmployeeType).FirstOrDefault();
+                var type = item.Contracts.Any() ? item.Contracts.Select(t => t.EmployeeType).FirstOrDefault() : (EmployeeType?)null;
+
+
                 EmployeeResponse employee = new EmployeeResponse
                 {
+                    Id = item.Id,
                     EmployeeName = item.EmployeeName,
                     EmployeeCode = item.EmployeeCode,
                     Role = item.Role,
@@ -43,7 +47,6 @@ namespace backend.Controllers
                 };
                 response.Add(employee);
             }
-
             return Ok(response);
         }
 
@@ -51,7 +54,17 @@ namespace backend.Controllers
         public IActionResult Get(int key)
         {
             var check = employeeRepository.GetEmployeeById(key);
-            return check == null ? NotFound() : Ok(check);
+            UpdateEmployeeResponse updateEmployee = new UpdateEmployeeResponse
+            {
+                EmployeeName = check.EmployeeName,
+                Address = check.Address,
+                CCCD = check.CCCD,
+                Dob = check.Dob,
+                Gender = check.Gender,
+                Phone = check.Phone,
+                EmployeeType = check.Contracts.Select(t => t.EmployeeType).FirstOrDefault()
+            };
+            return check == null ? NotFound() : Ok(updateEmployee);
         }
 
         [Authorize(Roles = "Admin")]
@@ -71,12 +84,12 @@ namespace backend.Controllers
             return check == "success" ? Ok() : BadRequest("Email already exist");
         }
 
-        [Authorize(Roles = "Employee")]
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] EmployeeUpdateDTO employee)
         {
             var check = employeeRepository.UpdateUser(id, employee);
-            return check ? Ok() : BadRequest();
+            return check ? Ok(check) : BadRequest();
         }
 
         [Authorize(Roles = "Admin")]
@@ -91,6 +104,28 @@ namespace backend.Controllers
             var check = employeeRepository.DeleteUser(id);
 
             return check ? Ok() : BadRequest("This employee has some contracts");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPatch("Deactivate/{id}")]
+        public IActionResult Deactivate(int id)
+        {
+            var checkEmp = employeeRepository.GetEmployeeById(id);
+            if (checkEmp == null)
+                return NotFound();
+            var check = employeeRepository.DeactivateEmployee(id);
+            return check.Equals("1") ? Ok() : BadRequest(check);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPatch("Active/{id}")]
+        public IActionResult Active(int id)
+        {
+            var checkEmp = employeeRepository.GetEmployeeById(id);
+            if (checkEmp == null)
+                return NotFound();
+            employeeRepository.ActiveEmployee(id);
+            return Ok();
         }
     }
 }

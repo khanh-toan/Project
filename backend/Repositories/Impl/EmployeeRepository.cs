@@ -13,16 +13,29 @@ namespace Repositories.Impl
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        public void ActiveEmployee(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool CheckCCCDIsExist(string cccd) => EmployeeDAO.FindEmployeeByCCCD(cccd);
 
         public string DeactivateEmployee(int id)
         {
-            throw new NotImplementedException();
+            var checkHasCurrentContract = ContractDAO.checkEmployeeHasAnyActiveContract(id);
+            if (checkHasCurrentContract != null)
+            {
+                return "Should end contract first, then can deactivate this user";
+            }
+            var employee = EmployeeDAO.FindEmployeeById(id);
+
+            employee.IsFirstLogin = true;
+            employee.Password = UserHelper.GeneratedEmployeeCode(employee.EmployeeName.ToLower(), employee.Dob);
+            employee.Status = EnumList.EmployeeStatus.Deactive;
+            EmployeeDAO.UpdateEmployee(employee);
+            return "1";
+        }
+
+        public void ActiveEmployee(int id)
+        {
+            var employee = EmployeeDAO.FindEmployeeById(id);
+            employee.Status = EnumList.EmployeeStatus.Active; EmployeeDAO.UpdateEmployee(employee);
         }
 
         public bool DeleteUser(int id)

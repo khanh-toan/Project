@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using BusinessObject.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,14 @@ namespace DataAccess
 {
     public class ContractDAO
     {
+        public static object checkEmployeeHasAnyActiveContract(int id)
+        {
+            var context = new MyDbContext();
+            return context.Contracts
+                .Where(x => x.EmployeeId == id && x.Status == EnumList.ContractStatus.Active)
+                .Include(x => x.User).FirstOrDefault();
+        }
+
         public static bool CheckEmployeeHaveAnyContract(int id)
         {
             var context = new MyDbContext();

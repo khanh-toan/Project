@@ -42,7 +42,9 @@
 </style>
 
 <h2>Employees</h2>
-<a asp-page="Create">Add New Employee</a>   
+<a asp-page="Add" class="add-btn">Add New Employee</a>
+<a href="#" onclick="exportToExcel()">Export to Excel</a>
+<a href="#" onclick="sortTableByFullName()">Sort by Full Name</a>
 <br />
 <table>
     <thead>
@@ -60,16 +62,21 @@
         @foreach (var employee in Model.Employees)
         {
             <tr>
-                <td>@employee.EmployeeName</td>
                 <td>@employee.EmployeeCode</td>
+                <td>@employee.EmployeeName</td>
                 <td>@employee.jobTitle</td>
                 <td>@employee.EmployeeType</td>
                 <td>@employee.CreatedDate</td>
                 <td>@employee.status</td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@employee.EmployeeCode">Edit</a> |
-                    <a asp-page="Delete" asp-route-id="@employee.EmployeeCode">Delete</a> |
-                    <a asp-page="Deactivate" asp-route-id="@employee.EmployeeCode">Deactivate</a>
+                    <a asp-page="Edit" asp-route-id="@employee.Id">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@employee.Id">Delete</a> |
+                    @if (employee.status == "Active")
+                    {
+                        <a asp-page="Deactive" asp-route-id="@employee.Id">Deactivate</a>                        
+                    }else{
+                        <a asp-page="Active" asp-route-id="@employee.Id">Active</a>
+                    }
                 </td>
                 @*<td>@employee.Role</td>*@
             </tr>
@@ -77,9 +84,67 @@
     </tbody>
 </table>
 
-@functions {
-    private string GetStatusClass(string status)
-    {
-        return status.Equals("Active", StringComparison.OrdinalIgnoreCase) ? "status-active" : "status-inactive";
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script>
+    function exportToExcel() {
+        var table = document.querySelector('table');
+        var data = [];
+
+        // Lấy dữ liệu từ các hàng (loại bỏ cột "Actions")
+        for (var i = 0; i < table.rows.length; i++) {
+            var row = [];
+            for (var j = 0; j < table.rows[i].cells.length - 1; j++) { // loại bỏ cột "Actions"
+                row.push(table.rows[i].cells[j].innerText);
+            }
+            data.push(row);
+        }
+
+        // Tạo workbook và worksheet
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(data);
+
+        // Thêm worksheet vào workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Employees");
+
+        // Tạo file Excel và tải về
+        XLSX.writeFile(wb, "Employees.xlsx");
     }
-}
+</script>
+<script>
+    var sorted = false; // Biến để theo dõi trạng thái sắp xếp
+
+    function sortTableByFullName() {
+        var table = document.querySelector('table');
+        var tbody = table.querySelector('tbody');
+        var rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort(function (a, b) {
+            var nameA = a.cells[1].innerText.toUpperCase();
+            var nameB = b.cells[1].innerText.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            return 0;
+        });
+
+        // Nếu đã được sắp xếp, đảo ngược thứ tự
+        if (sorted) {
+            rows.reverse();
+        }
+
+        // Xóa các hàng hiện tại trong bảng
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+
+        // Thêm lại các hàng đã được sắp xếp
+        rows.forEach(function (row) {
+            tbody.appendChild(row);
+        });
+
+        sorted = !sorted; // Đảo ngược trạng thái sắp xếp
+    }
+</script>

@@ -11,6 +11,7 @@ namespace DataTransfer.Response
 {
     public class EmployeeResponse
     {
+        public int Id { get; set; }
         public string EmployeeName { get; set; }
         [Required]
         public string EmployeeCode { get; set; }
@@ -26,5 +27,29 @@ namespace DataTransfer.Response
         public bool IsFirstLogin { get; set; }
 
         public string jobTitle { get; set; }
+    }
+
+    public class UpdateEmployeeResponse
+    {
+        [Required]
+        public string EmployeeName { get; set; }
+
+        [Required]
+        public EnumList.Gender Gender { get; set; }
+
+        [Required]
+        public DateTime Dob { get; set; }
+
+        [Required, MinLength(10), MaxLength(12)]
+        public string CCCD { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public EnumList.EmployeeType EmployeeType { get; set; }
+
+        [Required]
+        public string Phone { get; set; }
     }
 }

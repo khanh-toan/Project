@@ -16,8 +16,12 @@ namespace Repositories.Helper
             return status == EmployeeStatus.Active ? "Active" : "Deactive";
         }
 
-        public static string GetEmployeeType(EmployeeType type)
+        public static string GetEmployeeType(EmployeeType? type)
         {
+            if (type == null)
+            {
+                return "Unknown";
+            }
             return type == EmployeeType.FullTime ? "FullTime" : "PartTime";
         }
 

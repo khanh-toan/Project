@@ -24,6 +24,5 @@ namespace clients.Pages.Admins.Employees
                 return RedirectToPage("/Error");
             }
         }
-
     }
 }

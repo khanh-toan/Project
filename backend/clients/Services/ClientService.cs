@@ -19,6 +19,67 @@ namespace clients.Services
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }   
 
+        public async Task<HttpResponseMessage> Deactivate(string relativeUrl)
+        {
+            try
+            {
+                var res = await _client.PatchAsync(relativeUrl, null);
+                return res;
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public async Task<string?> Delete(string relativeUrl)
+        {
+            try
+            {
+                var res = await _client.DeleteAsync(relativeUrl);
+                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
+                return await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public async Task<HttpResponseMessage> PostReturnResponse(string relativeUrl, object? data)
+        {
+            try
+            {
+                var res = await _client.PostAsync(relativeUrl, GetBody(data));
+                return res;
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public async Task<string?> Put(string relativeUrl, object? data)
+        {
+            try
+            {
+                var res = await _client.PutAsync(relativeUrl, GetBody(data));
+                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
+                return await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        private static StringContent? GetBody(object? data)
+        {
+            if (data == null) return null;
+            var body = JsonConvert.SerializeObject(data);
+            return new StringContent(body, Encoding.UTF8, "application/json");
+        }
+
         public async Task<T?> GetAll<T>(string relativeUrl)
         {
             try
@@ -131,54 +192,6 @@ namespace clients.Services
             {
                 return default;
             }
-        }
-
-        public async Task<HttpResponseMessage> PostReturnResponse(string relativeUrl, object? data)
-        {
-            try
-            {
-                var res = await _client.PostAsync(relativeUrl, GetBody(data));
-                return res;
-            }
-            catch
-            {
-                return default;
-            }
-        }
-
-        public async Task<string?> Put(string relativeUrl, object? data)
-        {
-            try
-            {
-                var res = await _client.PutAsync(relativeUrl, GetBody(data));
-                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
-                return await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
-            }
-            catch
-            {
-                return default;
-            }
-        }
-
-        public async Task<string?> Delete(string relativeUrl, string? param)
-        {
-            try
-            {
-                var res = await _client.DeleteAsync(relativeUrl + param);
-                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
-                return await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
-            }
-            catch
-            {
-                return default;
-            }
-        }
-
-        private static StringContent? GetBody(object? data)
-        {
-            if (data == null) return null;
-            var body = JsonConvert.SerializeObject(data);
-            return new StringContent(body, Encoding.UTF8, "application/json");
         }
     }
 }   

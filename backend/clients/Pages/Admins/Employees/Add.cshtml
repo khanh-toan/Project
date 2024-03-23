@@ -1,0 +1,69 @@
+﻿@page
+@model clients.Pages.Admins.Employees.AddModel
+@{
+}
+
+<h1>Add Employee</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Employee.FirstName"></label>
+        <input asp-for="Employee.FirstName" class="form-control" />
+        <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.LastName"></label>
+        <input asp-for="Employee.LastName" class="form-control" />
+        <span asp-validation-for="Employee.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Gender"></label>
+        <select asp-for="Employee.Gender" class="form-control">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="2">Other</option>
+        </select>
+        <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Dob"></label>
+        <input asp-for="Employee.Dob" class="form-control" />
+        <span asp-validation-for="Employee.Dob" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.CCCD"></label>
+        <input asp-for="Employee.CCCD" class="form-control" />
+        <span asp-validation-for="Employee.CCCD" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Phone"></label>
+        <input asp-for="Employee.Phone" class="form-control" />
+        <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Address"></label>
+        <input asp-for="Employee.Address" class="form-control" />
+        <span asp-validation-for="Employee.Address" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}

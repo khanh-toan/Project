@@ -16,12 +16,32 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\8_PRN231\Project\backend\clients
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xJbmRleC5jc2h0bWw=
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/8_PRN231/Project/backend/clients/Pages/Admins/ManageLevel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXE1hbmFnZUxldmVsLmNzaHRtbA==
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Active.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xBY3RpdmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Deactive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xEZWFjdGl2ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEVtcGxveWVlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/8_PRN231/Project/backend/clients/Pages/Auth/Login.cshtml]

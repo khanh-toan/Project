@@ -1,0 +1,65 @@
+﻿@page
+@model clients.Pages.Admins.Employees.EditModel
+@{
+}
+<h1>Update Employee</h1>
+@if (Model.Employee != null)
+{
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Employee.EmployeeName"></label>
+            <input asp-for="Employee.EmployeeName" class="form-control" />
+            <span asp-validation-for="Employee.EmployeeName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.Gender"></label>
+            <select id="genderSelect" asp-for="Employee.Gender" class="form-control">
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+                <option value="2">Other</option>
+            </select>
+            <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.Dob"></label>
+            <input asp-for="Employee.Dob" class="form-control" />
+            <span asp-validation-for="Employee.Dob" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.CCCD"></label>
+            <input asp-for="Employee.CCCD" class="form-control" />
+            <span asp-validation-for="Employee.CCCD" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.Address"></label>
+            <input asp-for="Employee.Address" class="form-control" />
+            <span asp-validation-for="Employee.Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.EmployeeType"></label>
+            <select asp-for="Employee.EmployeeType" class="form-control">
+                <option value="0">Full Time</option>
+                <option value="1">Part Time</option>
+            </select>
+            <span asp-validation-for="Employee.EmployeeType" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.Phone"></label>
+            <input asp-for="Employee.Phone" class="form-control" />
+            <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+}
+else
+{
+    <p>Không tìm thấy thông tin nhân viên.</p>
+    <a asp-page="/Admins/Employees/Index">Quay lại danh sách nhân viên</a>
+}
