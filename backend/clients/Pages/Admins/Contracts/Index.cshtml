@@ -2,3 +2,93 @@
 @model clients.Pages.Admins.Contracts.IndexModel
 @{
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px;
+    }
+
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .status-active {
+        color: green;
+    }
+
+    .status-inactive {
+        color: red;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        padding: 4px 8px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 4px;
+    }
+
+        a:hover {
+            background-color: #ddd;
+        }
+</style>
+<h2>Employees</h2>
+<a asp-page="/Admins/Contracts/Create" class="btn btn-primary">Add Contract</a>
+<table>
+    <thead>
+        <tr>
+            <th>contract</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>contract Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contract in Model.Contracts)
+        {
+            <tr>
+                <td>@contract.Employee</td>
+                <td>@contract.StartDate.ToString("M/d/yyyy")</td>
+                <td>@contract.EndDate.ToString("M/d/yyyy")</td>
+                <td>@contract.EmployeeType</td>
+                <td>@contract.Status</td>
+                <td>
+                    @if (@contract.Status == "Active")
+                    {
+                        <a asp-page="Deactive" asp-route-id="@contract.Id">Deactivate</a>
+                    }
+                    else if (contract.Status == "Expired")
+                    {
+
+                    }
+                    else
+                    {
+                        <a asp-page="Active" asp-route-id="@contract.Id">Active</a>
+                        <a asp-page="Delete" asp-route-id="@contract.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

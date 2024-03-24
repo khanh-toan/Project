@@ -33,6 +33,13 @@ namespace DataAccess
             context.SaveChanges();
         }
 
+        public static void DeleteContract(Contract contract)
+        {
+            var context = new MyDbContext();
+            context.Contracts.Remove(contract);
+            context.SaveChanges();
+        }
+
         public static Contract FindContractById(int id)
         {
             var context = new MyDbContext();
@@ -51,6 +58,19 @@ namespace DataAccess
                 .Include(s => s.Level)
                 .Include(s => s.Position)
                 .ToList();
+        }
+
+        public static List<Contract> GetContractsByEmpId(int empId)
+        {
+            var context = new MyDbContext();
+            return context.Contracts.Where(x => x.EmployeeId == empId).ToList();
+        }
+
+        public static void UpdateContract(Contract contract)
+        {
+            var context = new MyDbContext();
+            context.Entry(contract).State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

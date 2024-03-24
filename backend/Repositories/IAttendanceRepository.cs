@@ -11,6 +11,7 @@ namespace Repositories
     public interface IAttendanceRepository
     {
         public List<Attendance> GetAttendances();
+        public List<Attendance> FindAttendanceByEmpId(int empId);
         public Attendance FindAttendanceById(int attendanceId);
         public List<Attendance> FindAttendanceByUserAndTime(int userId, DateTime timeBegin, DateTime timeEnd);
         public List<Attendance> FindAttendanceByUser(int userId);

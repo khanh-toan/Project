@@ -1,8 +1,10 @@
 ﻿using BusinessObject;
+using BusinessObject.Enum;
 using DataTransfer.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repositories;
 using Repositories.Helper;
 using Repositories.Impl;
@@ -18,7 +20,28 @@ namespace backend.Controllers
         private readonly IAttendanceRepository attendanceRepository = new AttendaceReposiory();
 
         [HttpGet]
-        public IActionResult Get() => Ok(attendanceRepository.GetAttendances());
+        public IActionResult Get()
+        {
+            var check = attendanceRepository.GetAttendances();
+            List<AdminAttendance> admins = new List<AdminAttendance>();
+            foreach (var item in check)
+            {
+
+                AdminAttendance a = new AdminAttendance
+                {
+                    Id = item.Id,
+                    Date = item.Date,
+                    EmployeeId = item.EmployeeId,
+                    Hour = item.Hour,
+                    OTHour = item.OTHour,
+                    Type = item.Type,
+                    Status = UserHelper.GetAttandanceStatusString(item.Status),
+                    EmployeeName = item.User.EmployeeName + " - " + item.User.EmployeeCode
+                };
+                admins.Add(a);
+            }
+            return Ok(admins);
+        }
 
         [HttpGet("{id}")]
         public ActionResult<Attendance> Get(int id)
@@ -30,7 +53,37 @@ namespace backend.Controllers
             return Ok(item);
         }
 
+
+        [HttpGet("AttendanceEmployee/{id}")]
+        [Authorize(Roles = "Employee")]
+        public IActionResult GetAttendanceByEmpId(int id)
+        {
+            try
+            {
+                string token = HttpContext.Request.Headers["Authorization"];
+                if (string.IsNullOrEmpty(token))
+                    return BadRequest("Invalid token");
+                if (token.StartsWith("Bearer "))
+                    token = token.Substring("Bearer ".Length).Trim();
+                var employeeId = UserHelper.GetEmployeeIdFromToken(token);
+
+                var attendanceEmp = attendanceRepository.FindAttendanceByEmpId(id);
+                if (attendanceEmp.Count == 0)
+                {
+                    return BadRequest("Employee need attendance today");
+                }
+                return Ok(attendanceEmp);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost("AttendanceEmployee")]
+        [Authorize(Roles = "Employee")]
         public IActionResult EmployeePost([FromBody] AttendanceEmployeeReq attendanceRq)
         {
             try
@@ -46,13 +99,15 @@ namespace backend.Controllers
 
                 if (tempAttendance != null)
                     return BadRequest("Attendance already exists.");
+
                 var current = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear
                     (attendanceRq.Date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
 
                 var now = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear
                     (DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
-                if (current < now && attendanceRq.Date.Year < DateTime.Now.Year) 
+                if (current < now && attendanceRq.Date.Year < DateTime.Now.Year)
                     return Conflict("Date time create is out!");
+
 
                 Attendance newAttendance = new Attendance
                 {
@@ -63,7 +118,7 @@ namespace backend.Controllers
                     EmployeeId = employeeId
                 };
                 attendanceRepository.SaveAttendance(newAttendance);
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -71,9 +126,38 @@ namespace backend.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var attendance = attendanceRepository.FindAttendanceById(id);
+                if (attendance == null)
+                    return BadRequest("id khong ton tai");
+                attendanceRepository.DeleteAttendance(attendance);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPatch("{key}")]
+        public IActionResult Patch(int key, EnumList.AttendanceStatus attendanceStatus)
+        {
+            var attendance = attendanceRepository.FindAttendanceById(key);
 
-
+            if (attendance == null)
+                return NotFound();
+            try
+            {
+                attendanceRepository.UpdateStatusAttendance(key, attendanceStatus);
+                return Ok();
+            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
+        }
 
     }
 }

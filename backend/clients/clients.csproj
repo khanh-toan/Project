@@ -25,9 +25,4 @@
     <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Admins\Levels\" />
-    <Folder Include="Pages\Users\" />
-  </ItemGroup>
-
 </Project>

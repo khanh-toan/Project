@@ -11,6 +11,37 @@ namespace Repositories.Helper
 {
     public class UserHelper
     {
+        public static string GetAttandanceStatusString(AttendanceStatus status)
+        {
+            if (status == AttendanceStatus.Waiting)
+            {
+                return "Waiting";
+            }
+            else if (status == AttendanceStatus.Approved)
+            {
+                return "Approved";
+            }
+            else
+            {
+                return "Rejected";
+            }
+        }
+
+        public static string GetContractStatusString(ContractStatus status)
+        {
+            if (status == ContractStatus.Active)
+            {
+                return "Active";
+            }
+            else if (status == ContractStatus.Expired)
+            {
+                return "Expired";
+            }
+            else
+            {
+                return "Waiting";
+            }
+        }
         public static string GetStatusString(EmployeeStatus status)
         {
             return status == EmployeeStatus.Active ? "Active" : "Deactive";

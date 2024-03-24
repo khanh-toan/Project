@@ -59,6 +59,21 @@ namespace clients.Services
             }
         }
 
+        public async Task<T?> GetAll<T>(string relativeUrl)
+        {
+            try
+            {
+                var res = await _client.GetAsync(relativeUrl);
+                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
+                var content = await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(content);
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
         public async Task<string?> Put(string relativeUrl, object? data)
         {
             try
@@ -80,20 +95,6 @@ namespace clients.Services
             return new StringContent(body, Encoding.UTF8, "application/json");
         }
 
-        public async Task<T?> GetAll<T>(string relativeUrl)
-        {
-            try
-            {
-                var res = await _client.GetAsync(relativeUrl);
-                if ((int)res.StatusCode == 401) await _httpContext.SignOutAsync("CookieAuthentication");
-                var content = await res.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(content);
-            }
-            catch
-            {
-                return default;
-            }
-        }
         public async Task<T?> GetDetail<T>(string relativeUrl, string? param)
         {
             try

@@ -13,7 +13,12 @@ namespace Repositories.Impl
     {
         public void DeleteAttendance(Attendance Attendance)
         {
-            throw new NotImplementedException();
+            AttendanceDAO.DeleteAttendance(Attendance);
+        }
+
+        public List<Attendance> FindAttendanceByEmpId(int empid)
+        {
+            return AttendanceDAO.FindAttendanceByEmpId(empid);
         }
 
         public Attendance FindAttendanceById(int attendanceId) => AttendanceDAO.FindAttendanceById(attendanceId);
@@ -50,7 +55,7 @@ namespace Repositories.Impl
 
         public void UpdateStatusAttendance(int id, EnumList.AttendanceStatus attendanceStatus)
         {
-            throw new NotImplementedException();
+            AttendanceDAO.UpdateStatusAttendance(id, attendanceStatus);
         }
     }
 }

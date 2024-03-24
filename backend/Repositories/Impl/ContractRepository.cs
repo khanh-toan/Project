@@ -15,7 +15,20 @@ namespace Repositories.Impl
     {
         public bool ActiveContract(int contractId)
         {
-            throw new NotImplementedException();
+            var check = false;
+            var contract = ContractDAO.FindContractById(contractId);
+            var checkEmployee = ContractDAO.checkEmployeeHasAnyActiveContract(contract.EmployeeId);
+            if (checkEmployee != null)
+                return false;
+            var listContractOfThisEmp = ContractDAO.GetContractsByEmpId(contract.EmployeeId);
+            foreach (var cont in listContractOfThisEmp)
+            {
+                if (cont.EndDate.Date == contract.StartDate.Date) check = true;
+            }
+            if (check) contract.StartDate = contract.StartDate.AddDays(1);
+            contract.Status = EnumList.ContractStatus.Active;
+            ContractDAO.UpdateContract(contract);
+            return true;
         }
 
         public string CreateContract(ContractReq req)
@@ -75,12 +88,19 @@ namespace Repositories.Impl
 
         public bool DeactivateContract(int contractId)
         {
-            throw new NotImplementedException();
+            var contract = ContractDAO.FindContractById(contractId);
+            contract.Status = EnumList.ContractStatus.Expired;
+            contract.EndDate = DateTime.Now;
+            ContractDAO.UpdateContract(contract);
+            return true;
         }
 
         public bool DeleteContract(Contract contract)
         {
-            throw new NotImplementedException();
+            if (contract.Status != EnumList.ContractStatus.Waiting)
+                return false;
+            ContractDAO.DeleteContract(contract);
+            return true;
         }
         public Contract GetContract(int contractId) => ContractDAO.FindContractById(contractId);
 

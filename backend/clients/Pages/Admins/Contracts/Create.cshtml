@@ -1,0 +1,140 @@
+﻿@page
+@model clients.Pages.Admins.Contracts.CreateModel
+@{
+}
+<h1>Add Employee</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Contracts.EmployeeId">Employee</label>
+        <select asp-for="Contracts.EmployeeId" class="form-control" required>
+            <option value="">Select Employee</option>
+            @foreach (var employee in Model.employees)
+            {
+                <option value="@employee.Id">@employee.EmployeeName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="position">Position</label>
+        <select asp-for="Contracts.PositionId" class="form-control" required>
+            <option value="">Select Position</option>
+            <option value="1">Software Engineering</option>
+            <option value="2">Business Analysis</option>
+            <option value="3">Automation Tester</option>
+            <option value="4">Project Manager</option>
+            <option value="5">Solution Architecture</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="level">Level</label>
+        <select asp-for="Contracts.LevelId" class="form-control" required>
+            <option value="">Select Level</option>
+            <option value="1">Intern</option>
+            <option value="2">Fresher</option>
+            <option value="3">Junior</option>
+            <option value="4">Senior</option>
+            <option value="5">Project Manager</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="employeeType">Employee Type</label>
+        <select asp-for="Contracts.EmployeeType" id="employeeType" class="form-control" required>
+            <option value="">Select Employee Type</option>
+            <option value="0">Full Time</option>
+            <option value="1">Part Time</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="salaryType">Salary Type</label>
+        <select id="salaryType" asp-for="Contracts.SalaryType" class="form-control" required>
+            <option value="0">NET</option>
+            <option value="1">Gross</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" class="form-control" id="startDate" asp-for="Contracts.StartDate" required min="@DateTime.Today.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" asp-for="Contracts.EndDate" required min="@DateTime.Today.ToString(" yyyy-MM-dd")">
+    </div>
+    <div class="form-group">
+        <label for="baseSalary">Base Salary</label>
+        <input type="number" class="form-control" id="baseSalary" asp-for="Contracts.BaseSalary" required min="0">
+    </div>
+
+    <div id="partTimeFields" style="display: none;">
+        <div class="form-group">
+            <label for="dayOffPerYear">Day off per year</label>
+            <input type="number" class="form-control" id="dayOffPerYear" asp-for="Contracts.DateOffPerYear" min="1">
+        </div>
+        <div class="form-group">
+            <label for="otSalaryRate">OT Salary Rate</label>
+            <input type="number" class="form-control" id="otSalaryRate" asp-for="Contracts.OTSalaryRate" min="0" max="100">
+        </div>
+    </div>
+
+    <div id="grossFields" style="display: none;">
+        <div class="form-group">
+            <label for="insuranceRate">Insurance Rate</label>
+            <input type="number" class="form-control" id="insuranceRate" asp-for="Contracts.InsuranceRate" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <label for="taxRate">Tax Rate</label>
+            <input type="number" class="form-control" id="taxRate" asp-for="Contracts.TaxRate" min="0" max="100">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Contract</button>
+</form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var employeeTypeSelect = document.getElementById('employeeType');
+        var salaryTypeSelect = document.getElementById('salaryType');
+
+        // Tham chiếu đến các trường và nhóm trường
+        var partTimeFields = document.getElementById('partTimeFields');
+        var grossFields = document.getElementById('grossFields');
+
+        var dayOffPerYear = document.getElementById('dayOffPerYear');
+        var otSalaryRate = document.getElementById('otSalaryRate');
+        var insuranceRate = document.getElementById('insuranceRate');
+        var taxRate = document.getElementById('taxRate');
+
+        // Hàm để xử lý việc thêm hoặc xóa thuộc tính required
+        function toggleRequired(display, ...elements) {
+            elements.forEach(element => {
+                if (display) {
+                    element.setAttribute('required', '');
+                } else {
+                    element.removeAttribute('required');
+                }
+            });
+        }
+
+        // Xử lý sự kiện thay đổi loại nhân viên
+        employeeTypeSelect.addEventListener('change', function () {
+            var isPartTime = this.value === '0';
+            partTimeFields.style.display = isPartTime ? 'block' : 'none';
+            toggleRequired(isPartTime, dayOffPerYear, otSalaryRate); // Cập nhật thuộc tính required
+        });
+
+        // Xử lý sự kiện thay đổi loại lương
+        salaryTypeSelect.addEventListener('change', function () {
+            var isGross = this.value === '1';
+            grossFields.style.display = isGross ? 'block' : 'none';
+            toggleRequired(isGross, insuranceRate, taxRate); // Cập nhật thuộc tính required
+        });
+    });
+
+</script>

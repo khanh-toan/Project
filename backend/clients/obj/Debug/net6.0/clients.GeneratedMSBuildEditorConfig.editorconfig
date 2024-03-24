@@ -16,6 +16,42 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\8_PRN231\Project\backend\clients
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Attendances/Approve.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEF0dGVuZGFuY2VzXEFwcHJvdmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Attendances/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEF0dGVuZGFuY2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Attendances/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEF0dGVuZGFuY2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Attendances/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEF0dGVuZGFuY2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Attendances/Reject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXEF0dGVuZGFuY2VzXFJlamVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Active.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xBY3RpdmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Deactive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xEZWFjdGl2ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/8_PRN231/Project/backend/clients/Pages/Admins/Contracts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5zXENvbnRyYWN0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +98,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/8_PRN231/Project/backend/clients/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Users/AddAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQWRkQXR0ZW5kYW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Users/AttendanceEmp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQXR0ZW5kYW5jZUVtcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/8_PRN231/Project/backend/clients/Pages/Users/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/8_PRN231/Project/backend/clients/Pages/_ViewImports.cshtml]

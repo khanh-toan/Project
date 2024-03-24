@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace clients.Pages.Auth
 {
@@ -56,7 +57,15 @@ namespace clients.Pages.Auth
                 }
                 else
                 {
-                    return RedirectToPage("/User/Index");
+                    var idEmployee = jwtToken.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value;
+                    if (!string.IsNullOrEmpty(idEmployee))
+                    {
+                        return RedirectToPage("/Users/AttendanceEmp", new { id = idEmployee });
+                    }
+                    else
+                    {
+                        return RedirectToPage("/Index");
+                    }
                 }
             }
             else
